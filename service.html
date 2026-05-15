@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Service details for INEX Construction East Coast construction and design-support capabilities.">
+  <title>Service Details | INEX Construction East Coast</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="service-detail.css">
+</head>
+<body>
+  <!-- Shared detail-page navigation -->
+  <header class="site-header" id="top">
+    <nav class="nav" aria-label="Primary navigation">
+      <a class="brand" href="index.html#top" aria-label="INEX Construction East Coast home">
+        <img class="brand-logo" src="assets/logos/inex-black-beige-logo.webp" alt="INEX Studio Build">
+      </a>
+      <ul class="nav-menu detail-nav">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="index.html#portfolio">Portfolio</a></li>
+        <li><a class="nav-cta" href="index.html#contact">Contact Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="service-page">
+    <!-- Service hero is filled from service-detail.js -->
+    <section class="service-hero" aria-labelledby="service-title">
+      <img id="service-hero-image" src="assets/images/hero-deck.webp" alt="">
+      <div class="service-hero-overlay"></div>
+      <div class="service-hero-content">
+        <p class="eyebrow">INEX Construction East Coast</p>
+        <h1 id="service-title">Service Details</h1>
+        <p id="service-summary"></p>
+      </div>
+    </section>
+
+    <section class="service-layout">
+      <article class="service-article">
+        <nav class="breadcrumbs" aria-label="Breadcrumb">
+          <a href="index.html#top">Home</a>
+          <span>/</span>
+          <a href="index.html#services">Services</a>
+          <span>/</span>
+          <strong id="service-breadcrumb">Service</strong>
+        </nav>
+
+        <p class="lead" id="service-lead"></p>
+
+        <div class="detail-cta-row">
+          <a class="button primary" href="index.html#contact">Schedule an Appointment</a>
+          <a class="button secondary" href="index.html#portfolio">View Related Work</a>
+        </div>
+
+        <div class="service-section">
+          <h2>How We Help</h2>
+          <p id="service-body"></p>
+        </div>
+
+        <div class="service-section">
+          <h2>Common Project Needs</h2>
+          <div class="idea-grid" id="service-ideas"></div>
+        </div>
+
+        <div class="service-section">
+          <h2>Our Process</h2>
+          <ol class="process-list">
+            <li><strong>Listen and define scope.</strong> We start with your goals, site conditions, timeline, budget, and practical constraints.</li>
+            <li><strong>Visualize and coordinate.</strong> When helpful, we support planning with 3D visuals, project renderings, permit assistance, and drawing coordination.</li>
+            <li><strong>Build with detail.</strong> Our team focuses on clean execution, clear communication, and project completion that matches the agreed scope.</li>
+          </ol>
+        </div>
+      </article>
+
+      <aside class="service-sidebar" aria-label="Service navigation and credentials">
+        <div class="sidebar-panel">
+          <h2>Services</h2>
+          <ul id="service-list"></ul>
+        </div>
+        <div class="sidebar-panel">
+          <h2>Professional Focus</h2>
+          <div class="membership-logos detail-memberships" aria-label="Professional focus areas">
+            <span>3D</span>
+            <span>PERMITS</span>
+            <span>REPAIRS</span>
+            <span>BUILD</span>
+          </div>
+        </div>
+        <div class="sidebar-panel dark-panel">
+          <h2>Start a Project</h2>
+          <p>Share your project goals and we will help identify the right next step.</p>
+          <a class="button primary" href="index.html#contact">Contact Us</a>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-brand">
+      <strong>INEX Construction East Coast</strong>
+      <span>Construction, design-support, renderings, coordination, repairs, remodeling, restoration, and build services.</span>
+    </div>
+  </footer>
+
+  <script src="service-detail.js"></script>
+</body>
+</html>
