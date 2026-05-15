@@ -1,10 +1,16 @@
 name = "inex-website"
+main = "src/worker.js"
 compatibility_date = "2026-05-15"
-pages_build_output_dir = "."
+
+[assets]
+directory = "."
+binding = "ASSETS"
+run_worker_first = ["/api/*"]
 
 [[send_email]]
 name = "CONTACT_EMAIL"
+remote = true
 
-# Configure these in Cloudflare Pages > Settings > Environment variables:
+# Configure these in Cloudflare Workers > Settings > Variables and Secrets:
 # CONTACT_FROM = "website@your-domain.com"
 # CONTACT_TO = "your-inbox@example.com"

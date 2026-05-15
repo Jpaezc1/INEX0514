@@ -186,7 +186,7 @@ compareHandle.addEventListener("keydown", (event) => {
   }
 });
 
-// Submit contact requests to the Cloudflare Pages Function.
+// Submit contact requests to the Cloudflare Worker endpoint.
 if (contactForm) {
   contactForm.addEventListener("submit", async (event) => {
     event.preventDefault();
