@@ -52,6 +52,9 @@ const compareSlider = document.querySelector("#compare-slider");
 const compareReveal = document.querySelector("#compare-reveal");
 const compareHandle = document.querySelector("#compare-handle");
 
+const contactForm = document.querySelector(".contact-form");
+const contactStatus = document.querySelector(".form-status");
+
 let currentProjectIndex = 0;
 
 // Mobile navigation toggle.
@@ -182,3 +185,39 @@ compareHandle.addEventListener("keydown", (event) => {
     setComparisonPosition(rect.left + ((current + 5) / 100) * rect.width);
   }
 });
+
+// Submit contact requests to the Cloudflare Pages Function.
+if (contactForm) {
+  contactForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const submitButton = contactForm.querySelector('button[type="submit"]');
+    const formData = new FormData(contactForm);
+
+    contactStatus.textContent = "Sending your request...";
+    contactStatus.classList.remove("error", "success");
+    submitButton.disabled = true;
+
+    try {
+      const response = await fetch(contactForm.action, {
+        method: "POST",
+        body: formData,
+        headers: { Accept: "application/json" }
+      });
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(result.message || "Unable to send your request right now.");
+      }
+
+      contactForm.reset();
+      contactStatus.textContent = result.message || "Thanks. Your request has been sent.";
+      contactStatus.classList.add("success");
+    } catch (error) {
+      contactStatus.textContent = error.message || "Unable to send your request right now.";
+      contactStatus.classList.add("error");
+    } finally {
+      submitButton.disabled = false;
+    }
+  });
+}

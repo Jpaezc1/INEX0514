@@ -281,7 +281,7 @@
         <h2>Ready to plan your next project?</h2>
         <p>Tell us what you want to build, repair, restore, or renovate, and we will help map visualization, coordination, scope, materials, timing, and next steps.</p>
       </div>
-      <form class="contact-form" aria-label="Appointment request form">
+      <form class="contact-form" action="/api/contact" method="POST" aria-label="Appointment request form">
         <label>
           Name
           <input type="text" name="name" autocomplete="name" required>
@@ -307,8 +307,13 @@
         </label>
         <label>
           Message
-          <textarea name="message" rows="4"></textarea>
+          <textarea name="message" rows="4" required></textarea>
         </label>
+        <label class="form-honeypot" aria-hidden="true">
+          Website
+          <input type="text" name="website" tabindex="-1" autocomplete="off">
+        </label>
+        <p class="form-status" role="status" aria-live="polite"></p>
         <button class="button primary" type="submit">Schedule an Appointment</button>
       </form>
     </section>

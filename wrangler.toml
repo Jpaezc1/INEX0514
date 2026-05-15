@@ -1,0 +1,10 @@
+name = "inex-website"
+compatibility_date = "2026-05-15"
+pages_build_output_dir = "."
+
+[[send_email]]
+name = "CONTACT_EMAIL"
+
+# Configure these in Cloudflare Pages > Settings > Environment variables:
+# CONTACT_FROM = "website@your-domain.com"
+# CONTACT_TO = "your-inbox@example.com"

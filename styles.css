@@ -858,6 +858,35 @@ h3 {
   border-radius: 6px;
 }
 
+
+.form-honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.form-status {
+  min-height: 1.4em;
+  margin: 0;
+  color: #dfcfb5;
+  font-weight: 800;
+}
+
+.form-status.success {
+  color: #ffffff;
+}
+
+.form-status.error {
+  color: #f2b8a8;
+}
+
+.contact-form button:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
 .site-footer {
   display: flex;
   align-items: center;
