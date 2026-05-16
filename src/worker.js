@@ -59,7 +59,10 @@ function cleanHeader(value) {
 
 function buildEmailMessage(data, env) {
   const from = cleanHeader(env.CONTACT_FROM);
-  const to = cleanHeader(env.CONTACT_TO || "jpaezcabal@gmail.com");
+  const configuredTo = cleanHeader(env.CONTACT_TO);
+  const to = configuredTo.endsWith("@inexstudiobuild.com")
+    ? "jpaezcabal@gmail.com"
+    : configuredTo || "jpaezcabal@gmail.com";
   const replyTo = cleanHeader(data.email);
   const subject = cleanHeader(`New INEX request: ${data.project}`);
 
