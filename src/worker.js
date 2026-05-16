@@ -1,3 +1,5 @@
+import { EmailMessage } from "cloudflare:email";
+
 const MAX_FIELD_LENGTH = 4000;
 const REQUIRED_FIELDS = ["name", "email", "project", "message"];
 
@@ -51,6 +53,30 @@ function buildText(data) {
   ].join("\n");
 }
 
+function cleanHeader(value) {
+  return clean(value).replace(/[\r\n]+/g, " ");
+}
+
+function buildEmailMessage(data, env) {
+  const from = cleanHeader(env.CONTACT_FROM);
+  const to = cleanHeader(env.CONTACT_TO || "jpaezcabal@gmail.com");
+  const replyTo = cleanHeader(data.email);
+  const subject = cleanHeader(`New INEX request: ${data.project}`);
+
+  const rawMessage = [
+    `From: ${from}`,
+    `To: ${to}`,
+    `Reply-To: ${replyTo}`,
+    `Subject: ${subject}`,
+    "MIME-Version: 1.0",
+    'Content-Type: text/html; charset="UTF-8"',
+    "",
+    buildHtml(data)
+  ].join("\r\n");
+
+  return new EmailMessage(from, to, rawMessage);
+}
+
 async function handleContact(request, env) {
   let formData;
 
@@ -77,19 +103,12 @@ async function handleContact(request, env) {
     return jsonResponse({ message: "Please enter a valid email address." }, 400);
   }
 
-  if (!env.CONTACT_EMAIL || !env.CONTACT_FROM || !env.CONTACT_TO) {
+  if (!env.CONTACT_EMAIL || !env.CONTACT_FROM) {
     return jsonResponse({ message: "Contact form email is not configured yet." }, 500);
   }
 
   try {
-    await env.CONTACT_EMAIL.send({
-      from: env.CONTACT_FROM,
-      to: env.CONTACT_TO,
-      replyTo: data.email,
-      subject: `New INEX request: ${data.project}`,
-      text: buildText(data),
-      html: buildHtml(data)
-    });
+    await env.CONTACT_EMAIL.send(buildEmailMessage(data, env));
   } catch (error) {
     console.error("Contact email failed", error);
     return jsonResponse({ message: "Unable to send your request right now." }, 500);
