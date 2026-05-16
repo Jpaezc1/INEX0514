@@ -1,13 +1,23 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "inex0514",
+  "main": "src/worker.js",
   "compatibility_date": "2026-05-15",
   "observability": {
     "enabled": true
   },
   "assets": {
-    "directory": "."
+    "directory": ".",
+    "binding": "ASSETS",
+    "run_worker_first": [
+      "/api/*"
+    ]
   },
+  "send_email": [
+    {
+      "name": "CONTACT_EMAIL"
+    }
+  ],
   "compatibility_flags": [
     "nodejs_compat"
   ]
