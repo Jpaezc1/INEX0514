@@ -21,8 +21,8 @@ That means the static website is still served normally, but `/api/contact` is ro
 4. Add the email binding:
    - Binding name: `CONTACT_EMAIL`
 5. Add these Worker variables:
-   - `CONTACT_FROM`: an address on your Cloudflare email-enabled domain, for example `website@your-domain.com`
-   - `CONTACT_TO`: the inbox where you want requests delivered
+   - `CONTACT_FROM`: `contact@inexstudiobuild.com`
+   - `CONTACT_TO`: `jpaezcabal@gmail.com`
 6. Redeploy from GitHub.
 
-The form includes basic validation, a hidden spam honeypot field, and a user-facing success/error message. It does not require any third-party form service.
+The form includes basic validation, phone, project location, timeline, optional photo/plan uploads, a hidden spam honeypot field, and a user-facing success/error message. It does not require any third-party form service.

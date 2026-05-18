@@ -1,4 +1,4 @@
-name = "inex-website"
+name = "inex0514"
 main = "src/worker.js"
 compatibility_date = "2026-05-15"
 
@@ -9,8 +9,9 @@ run_worker_first = ["/api/*"]
 
 [[send_email]]
 name = "CONTACT_EMAIL"
+destination_address = "jpaezcabal@gmail.com"
 remote = true
 
 # Configure these in Cloudflare Workers > Settings > Variables and Secrets:
-# CONTACT_FROM = "website@your-domain.com"
-# CONTACT_TO = "your-inbox@example.com"
+# CONTACT_FROM = "contact@inexstudiobuild.com"
+# CONTACT_TO = "jpaezcabal@gmail.com"

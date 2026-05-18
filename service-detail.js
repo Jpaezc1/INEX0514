@@ -4,7 +4,7 @@ const services = {
     image: "assets/images/optimized/modeling-rendering-ramp-overview.webp",
     summary: "High-end visualization support that helps clients understand scale, finishes, and project direction before work begins.",
     lead: "Our 3D modeling and rendering support helps turn early ideas into clear visuals for planning conversations, client approvals, and project coordination.",
-    body: "INEX Construction East Coast creates polished visual materials that make construction decisions easier to understand. Renderings can help compare finish options, review layout ideas, communicate scope, and give clients confidence before committing to the next phase.",
+    body: "INEX Studio Build creates polished visual materials that make construction decisions easier to understand. Renderings can help compare finish options, review layout ideas, communicate scope, and give clients confidence before committing to the next phase.",
     ideas: [
       ["Concept visuals", "Early views that help clarify project direction and style."],
       ["Finish previews", "Support for reviewing materials, colors, textures, and exterior or interior options."],
@@ -17,7 +17,7 @@ const services = {
     image: "assets/images/optimized/permit-assistance-documents.webp",
     summary: "Practical support for organizing project information and helping clients move through permit-related requirements.",
     lead: "We help clients gather scope details, visuals, and coordinated documents needed for a smoother permit process.",
-    body: "Every municipality has its own requirements. INEX Construction East Coast supports clients by helping organize project information, coordinate needed materials, and keep the process moving with clear communication.",
+    body: "Every municipality has its own requirements. INEX Studio Build supports clients by helping organize project information, coordinate needed materials, and keep the process moving with clear communication.",
     ideas: [
       ["Scope preparation", "Clarifying what is being built, repaired, remodeled, or restored."],
       ["Document support", "Helping collect drawings, renderings, photos, and project notes."],
@@ -30,7 +30,7 @@ const services = {
     image: "assets/images/optimized/rendering-stair-detail.webp",
     summary: "Coordination support for projects that require drawings prepared or reviewed by qualified professionals.",
     lead: "For work that requires engineered drawings, we help coordinate the needed information with qualified professionals as required.",
-    body: "When drawings require professional input, INEX Construction East Coast supports the process by helping define scope, collect field information, coordinate project needs, and communicate clearly with the appropriate qualified professionals.",
+    body: "When drawings require professional input, INEX Studio Build supports the process by helping define scope, collect field information, coordinate project needs, and communicate clearly with the appropriate qualified professionals.",
     ideas: [
       ["Project scope notes", "Clear documentation of the intended repair, renovation, or build scope."],
       ["Field coordination", "Photos, measurements, and context that support drawing preparation."],
@@ -43,7 +43,7 @@ const services = {
     image: "assets/images/optimized/deck-surface-before.webp",
     summary: "Detail-focused repair and restoration services for aging, damaged, or worn residential and commercial spaces.",
     lead: "We help clients evaluate existing conditions and determine practical repair or restoration paths.",
-    body: "From exterior deterioration to interior wear, INEX Construction East Coast focuses on durable repairs, clean finishes, and thoughtful restoration that respects the project goals and budget.",
+    body: "From exterior deterioration to interior wear, INEX Studio Build focuses on durable repairs, clean finishes, and thoughtful restoration that respects the project goals and budget.",
     ideas: [
       ["Exterior repairs", "Decking, trim, siding-related details, and weather-exposed components."],
       ["Damage restoration", "Project support after water, age, use, or impact-related damage."],
@@ -56,7 +56,7 @@ const services = {
     image: "assets/images/optimized/building-envelope-lattice-after.webp",
     summary: "Residential and commercial remodeling services planned around function, finish quality, and client goals.",
     lead: "Our remodeling work helps clients adapt existing spaces for better use, updated style, and long-term value.",
-    body: "INEX Construction East Coast supports remodeling from early concept conversations through finish work and final completion. We focus on clear scope, reliable sequencing, and details that make the finished space feel intentional.",
+    body: "INEX Studio Build supports remodeling from early concept conversations through finish work and final completion. We focus on clear scope, reliable sequencing, and details that make the finished space feel intentional.",
     ideas: [
       ["Space updates", "Refreshing rooms, transitions, and finishes for modern use."],
       ["Layout improvements", "Practical changes that make spaces work better day to day."],
@@ -69,7 +69,7 @@ const services = {
     image: "assets/images/optimized/deck-surface-after.webp",
     summary: "Deck construction and repair services for safer, cleaner, more usable outdoor spaces.",
     lead: "We build, repair, and refresh decks with attention to materials, usability, and long-term performance.",
-    body: "Whether the project is a new deck, a repair, or a major refresh, INEX Construction East Coast helps clients plan the right solution for the property and intended use.",
+    body: "Whether the project is a new deck, a repair, or a major refresh, INEX Studio Build helps clients plan the right solution for the property and intended use.",
     ideas: [
       ["New deck builds", "Composite, wood, and custom deck solutions for outdoor living."],
       ["Deck repairs", "Repairing worn boards, rails, stairs, and related components."],
@@ -82,7 +82,7 @@ const services = {
     image: "assets/images/optimized/concrete-block-work.webp",
     summary: "Concrete and hardscape-related construction services for durable exterior surfaces and practical site improvements.",
     lead: "We help clients plan and complete concrete work that supports access, outdoor use, and property function.",
-    body: "Concrete work requires practical planning around drainage, grades, use, and finish expectations. INEX Construction East Coast helps clients complete concrete-related improvements with a detail-oriented construction approach.",
+    body: "Concrete work requires practical planning around drainage, grades, use, and finish expectations. INEX Studio Build helps clients complete concrete-related improvements with a detail-oriented construction approach.",
     ideas: [
       ["Patios and pads", "Durable surfaces for outdoor seating, utility areas, or access."],
       ["Walkways", "Cleaner circulation around homes, businesses, and outdoor spaces."],
@@ -95,7 +95,7 @@ const services = {
     image: "assets/images/optimized/stairs-after-day.webp",
     summary: "Interior and exterior carpentry services for custom details, repairs, and construction improvements.",
     lead: "Our carpentry capabilities support both practical construction needs and refined finish details.",
-    body: "INEX Construction East Coast provides carpentry support for renovations, repairs, exterior improvements, and custom build needs. We focus on clean execution and details that fit the project.",
+    body: "INEX Studio Build provides carpentry support for renovations, repairs, exterior improvements, and custom build needs. We focus on clean execution and details that fit the project.",
     ideas: [
       ["Exterior carpentry", "Deck details, trim, stairs, railings, and outdoor components."],
       ["Interior carpentry", "Finish details, built-ins, repairs, and custom improvements."],
@@ -108,7 +108,7 @@ const services = {
     image: "assets/images/optimized/building-envelope-after.webp",
     summary: "Renovation services that improve property appearance, function, comfort, and long-term use.",
     lead: "We help clients update interior and exterior spaces with a professional, modern, and practical construction approach.",
-    body: "From exterior upgrades to interior improvements, INEX Construction East Coast supports renovation projects with planning, visualization when useful, construction coordination, and reliable build execution.",
+    body: "From exterior upgrades to interior improvements, INEX Studio Build supports renovation projects with planning, visualization when useful, construction coordination, and reliable build execution.",
     ideas: [
       ["Exterior updates", "Outdoor structures, finishes, trim, decking, and property improvements."],
       ["Interior improvements", "Rooms, finishes, transitions, and usability upgrades."],
@@ -121,7 +121,7 @@ const services = {
     image: "assets/images/optimized/stairs-after.webp",
     summary: "Complete construction services for projects that need planning support, coordination, and final build execution.",
     lead: "We support projects from early conversations through visualization, coordination, construction, and completion.",
-    body: "INEX Construction East Coast provides full construction/build services for residential and commercial clients. Our team helps define scope, coordinate needed inputs, manage practical build details, and deliver completed work with a client-focused process.",
+    body: "INEX Studio Build provides full construction/build services for residential and commercial clients. Our team helps define scope, coordinate needed inputs, manage practical build details, and deliver completed work with a client-focused process.",
     ideas: [
       ["Residential construction", "Home improvements, additions, outdoor builds, and custom solutions."],
       ["Commercial construction", "Project support for business spaces and property improvements."],
@@ -136,7 +136,7 @@ const params = new URLSearchParams(window.location.search);
 const activeKey = services[params.get("service")] ? params.get("service") : fallbackKey;
 const activeService = services[activeKey];
 
-document.title = `${activeService.title} | INEX Construction East Coast`;
+document.title = `${activeService.title} | INEX Studio Build`;
 document.querySelector("#service-title").textContent = activeService.title;
 document.querySelector("#service-summary").textContent = activeService.summary;
 document.querySelector("#service-breadcrumb").textContent = activeService.title;

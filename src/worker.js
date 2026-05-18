@@ -1,7 +1,9 @@
 import { EmailMessage } from "cloudflare:email";
 
 const MAX_FIELD_LENGTH = 4000;
-const REQUIRED_FIELDS = ["name", "email", "project", "message"];
+const MAX_ATTACHMENT_BYTES = 8 * 1024 * 1024;
+const MAX_ATTACHMENTS = 3;
+const REQUIRED_FIELDS = ["name", "email", "phone", "location", "project", "timeline", "message"];
 
 function jsonResponse(body, status = 200) {
   return new Response(JSON.stringify(body), {
@@ -32,10 +34,14 @@ function isEmail(value) {
 
 function buildHtml(data) {
   return `
-    <h2>New INEX website request</h2>
+    <h2>New INEX Studio Build website request</h2>
     <p><strong>Name:</strong> ${escapeHtml(data.name)}</p>
     <p><strong>Email:</strong> ${escapeHtml(data.email)}</p>
+    <p><strong>Phone:</strong> ${escapeHtml(data.phone)}</p>
+    <p><strong>Project Location:</strong> ${escapeHtml(data.location)}</p>
     <p><strong>Project Type:</strong> ${escapeHtml(data.project)}</p>
+    <p><strong>Estimated Timeline:</strong> ${escapeHtml(data.timeline)}</p>
+    <p><strong>Uploaded Files:</strong> ${escapeHtml(data.attachments || "No files uploaded")}</p>
     <p><strong>Message:</strong></p>
     <p>${escapeHtml(data.message).replace(/\n/g, "<br>")}</p>
   `;
@@ -43,10 +49,14 @@ function buildHtml(data) {
 
 function buildText(data) {
   return [
-    "New INEX website request",
+    "New INEX Studio Build website request",
     `Name: ${data.name}`,
     `Email: ${data.email}`,
+    `Phone: ${data.phone}`,
+    `Project Location: ${data.location}`,
     `Project Type: ${data.project}`,
+    `Estimated Timeline: ${data.timeline}`,
+    `Uploaded Files: ${data.attachments || "No files uploaded"}`,
     "",
     "Message:",
     data.message
@@ -57,14 +67,97 @@ function cleanHeader(value) {
   return clean(value).replace(/[\r\n]+/g, " ");
 }
 
-function buildEmailMessage(data, env) {
+function safeFileName(value) {
+  return cleanHeader(value)
+    .replace(/[^\w.\- ()]/g, "_")
+    .slice(0, 120) || "attachment";
+}
+
+function arrayBufferToBase64(buffer) {
+  const bytes = new Uint8Array(buffer);
+  const chunkSize = 0x8000;
+  let binary = "";
+
+  for (let index = 0; index < bytes.length; index += chunkSize) {
+    binary += String.fromCharCode(...bytes.subarray(index, index + chunkSize));
+  }
+
+  return btoa(binary).replace(/.{1,76}/g, "$&\r\n").trim();
+}
+
+async function collectAttachments(formData) {
+  const files = formData
+    .getAll("attachments")
+    .filter((file) => file && typeof file === "object" && file.name && file.size);
+
+  if (files.length > MAX_ATTACHMENTS) {
+    return { error: `Please attach ${MAX_ATTACHMENTS} files or fewer.` };
+  }
+
+  const totalSize = files.reduce((sum, file) => sum + file.size, 0);
+  if (totalSize > MAX_ATTACHMENT_BYTES) {
+    return { error: "Please keep uploads under 8 MB total." };
+  }
+
+  const attachments = await Promise.all(
+    files.map(async (file) => ({
+      filename: safeFileName(file.name),
+      contentType: cleanHeader(file.type) || "application/octet-stream",
+      base64: arrayBufferToBase64(await file.arrayBuffer()),
+      size: file.size
+    }))
+  );
+
+  return { attachments };
+}
+
+function attachmentSummary(attachments) {
+  if (!attachments.length) return "No files uploaded";
+
+  return attachments
+    .map((file) => `${file.filename} (${Math.max(1, Math.round(file.size / 1024))} KB)`)
+    .join(", ");
+}
+
+function buildEmailMessage(data, env, attachments = []) {
   const from = cleanHeader(env.CONTACT_FROM);
   const configuredTo = cleanHeader(env.CONTACT_TO);
   const to = configuredTo.endsWith("@inexstudiobuild.com")
     ? "jpaezcabal@gmail.com"
     : configuredTo || "jpaezcabal@gmail.com";
   const replyTo = cleanHeader(data.email);
-  const subject = cleanHeader(`New INEX request: ${data.project}`);
+  const subject = cleanHeader(`New INEX Studio Build request: ${data.project}`);
+
+  if (attachments.length) {
+    const boundary = `inex-${crypto.randomUUID()}`;
+    const parts = [
+      `From: ${from}`,
+      `To: ${to}`,
+      `Reply-To: ${replyTo}`,
+      `Subject: ${subject}`,
+      "MIME-Version: 1.0",
+      `Content-Type: multipart/mixed; boundary="${boundary}"`,
+      "",
+      `--${boundary}`,
+      'Content-Type: text/html; charset="UTF-8"',
+      "",
+      buildHtml(data)
+    ];
+
+    attachments.forEach((file) => {
+      parts.push(
+        `--${boundary}`,
+        `Content-Type: ${file.contentType}; name="${file.filename}"`,
+        `Content-Disposition: attachment; filename="${file.filename}"`,
+        "Content-Transfer-Encoding: base64",
+        "",
+        file.base64
+      );
+    });
+
+    parts.push(`--${boundary}--`, "");
+    return new EmailMessage(from, to, parts.join("\r\n"));
+  }
 
   const rawMessage = [
     `From: ${from}`,
@@ -110,8 +203,15 @@ async function handleContact(request, env) {
     return jsonResponse({ message: "Contact form email is not configured yet." }, 500);
   }
 
+  const attachmentResult = await collectAttachments(formData);
+  if (attachmentResult.error) {
+    return jsonResponse({ message: attachmentResult.error }, 400);
+  }
+
+  data.attachments = attachmentSummary(attachmentResult.attachments);
+
   try {
-    await env.CONTACT_EMAIL.send(buildEmailMessage(data, env));
+    await env.CONTACT_EMAIL.send(buildEmailMessage(data, env, attachmentResult.attachments));
   } catch (error) {
     console.error("Contact email failed", error);
     return jsonResponse({ message: "Unable to send your request right now." }, 500);
