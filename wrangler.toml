@@ -15,7 +15,3 @@ remote = true
 [vars]
 CONTACT_FROM = "contact@inexstudiobuild.com"
 CONTACT_TO = "jpaezcabal@gmail.com"
-
-# Configure these in Cloudflare Workers > Settings > Variables and Secrets:
-# CONTACT_FROM = "contact@inexstudiobuild.com"
-# CONTACT_TO = "jpaezcabal@gmail.com"

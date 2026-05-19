@@ -64,6 +64,11 @@ const services = {
         image: "assets/images/optimized/coastal-access-rendering.webp",
         alt: "BIM rendering of a coastal access ramp connected to a residential building",
         caption: "Coastal access rendering"
+      },
+      {
+        image: "assets/images/optimized/townhomes-exterior-rendering.webp",
+        alt: "3D rendering of townhome exterior improvements with landscaping and parking",
+        caption: "Townhome exterior rendering"
       }
     ]
   },

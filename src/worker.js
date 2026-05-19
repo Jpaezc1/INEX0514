@@ -4,6 +4,8 @@ const MAX_FIELD_LENGTH = 4000;
 const MAX_ATTACHMENT_BYTES = 8 * 1024 * 1024;
 const MAX_ATTACHMENTS = 3;
 const REQUIRED_FIELDS = ["name", "email", "phone", "location", "project", "timeline", "message"];
+const DEFAULT_CONTACT_FROM = "contact@inexstudiobuild.com";
+const DEFAULT_CONTACT_TO = "jpaezcabal@gmail.com";
 
 function jsonResponse(body, status = 200) {
   return new Response(JSON.stringify(body), {
@@ -119,12 +121,18 @@ function attachmentSummary(attachments) {
     .join(", ");
 }
 
-function buildEmailMessage(data, env, attachments = []) {
-  const from = cleanHeader(env.CONTACT_FROM);
-  const configuredTo = cleanHeader(env.CONTACT_TO);
+function getContactConfig(env) {
+  const from = cleanHeader(env.CONTACT_FROM || DEFAULT_CONTACT_FROM);
+  const configuredTo = cleanHeader(env.CONTACT_TO || DEFAULT_CONTACT_TO);
   const to = configuredTo.endsWith("@inexstudiobuild.com")
-    ? "jpaezcabal@gmail.com"
-    : configuredTo || "jpaezcabal@gmail.com";
+    ? DEFAULT_CONTACT_TO
+    : configuredTo || DEFAULT_CONTACT_TO;
+
+  return { from, to };
+}
+
+function buildEmailMessage(data, env, attachments = []) {
+  const { from, to } = getContactConfig(env);
   const replyTo = cleanHeader(data.email);
   const subject = cleanHeader(`New INEX Studio Build request: ${data.project}`);
 
@@ -199,7 +207,7 @@ async function handleContact(request, env) {
     return jsonResponse({ message: "Please enter a valid email address." }, 400);
   }
 
-  if (!env.CONTACT_EMAIL || !env.CONTACT_FROM) {
+  if (!env.CONTACT_EMAIL) {
     return jsonResponse({ message: "Contact form email is not configured yet." }, 500);
   }
 
