@@ -1,15 +1,70 @@
 const services = {
   "3d-modeling-renderings": {
     title: "3D Modeling & Renderings",
-    image: "assets/images/optimized/modeling-rendering-ramp-overview.webp",
-    summary: "High-end visualization support that helps clients understand scale, finishes, and project direction before work begins.",
-    lead: "Our 3D modeling and rendering support helps turn early ideas into clear visuals for planning conversations, client approvals, and project coordination.",
-    body: "INEX Studio Build creates polished visual materials that make construction decisions easier to understand. Renderings can help compare finish options, review layout ideas, communicate scope, and give clients confidence before committing to the next phase.",
+    image: "assets/images/optimized/coastal-access-rendering.webp",
+    subtitle: "Visualize your project before construction begins.",
+    summary: "Create BIM/Revit-based 3D views, material options, and realistic project visuals to help homeowners, contractors, and property managers clearly understand the final design.",
+    lead: "Bring your project to life before construction begins.",
+    intro: [
+      "Our 3D modeling and rendering services use BIM/Revit-based workflows to help you visualize the final result, review design options, and communicate the project scope clearly with owners, contractors, HOAs, and permitting agencies.",
+      "Whether you are planning an exterior renovation, deck replacement, accessibility ramp, boardwalk, interior remodel, addition, or site improvement, realistic visuals can make the design process easier and help everyone understand the intended outcome before work begins."
+    ],
+    body: [
+      "We create clean and realistic 3D models and renderings to help homeowners, contractors, and property managers better visualize a project before construction starts. These visuals can be developed from existing drawings, field photos, sketches, measurements, design ideas, or BIM/Revit model information.",
+      "Our renderings are especially useful when comparing materials, colors, layouts, and overall project appearance. They can also help support planning, contractor pricing, owner presentations, HOA review, permit coordination, and project approvals.",
+      "We can provide simple concept renderings, exterior visualization, interior layouts, site improvement views, and before-and-after style graphics depending on the project needs."
+    ],
     ideas: [
-      ["Concept visuals", "Early views that help clarify project direction and style."],
-      ["Finish previews", "Support for reviewing materials, colors, textures, and exterior or interior options."],
-      ["Client presentations", "Modern visuals that make project conversations more focused and productive."],
-      ["Build planning support", "Visual references that help align expectations before construction starts."]
+      "Exterior renovation renderings",
+      "Deck, stair, ramp, and boardwalk visualizations",
+      "Multifamily and townhouse exterior improvement visuals",
+      "Interior remodeling concepts",
+      "Material and color comparison options",
+      "Before-and-after project visuals",
+      "Permit support exhibits",
+      "HOA or owner presentation graphics",
+      "Site layout and improvement visuals",
+      "3D views based on drawings, sketches, or field photos",
+      "Visuals to help contractors understand the intended scope",
+      "Concept images for residential and small commercial improvements"
+    ],
+    process: [
+      ["Share Your Project Information", "Send us any drawings, photos, sketches, measurements, or design ideas you already have. We can work from existing plans or help develop the visual direction based on the information available."],
+      ["Build the 3D Concept", "We create a 3D model or visual concept showing the main elements of the project, including layout, materials, colors, and general design intent."],
+      ["Review and Refine", "We review the rendering with you and make adjustments as needed, such as changing materials, colors, landscaping, views, or design features."],
+      ["Final Rendering Package", "Once the concept is approved, we provide final images that can be used for presentations, contractor coordination, HOA review, permit support, or general project planning."]
+    ],
+    cta: {
+      title: "Need help visualizing your project?",
+      text: "Send us your photos, sketches, or plans, and we can help turn them into a clear 3D concept or realistic rendering.",
+      button: "Start Your Rendering Project"
+    },
+    gallery: [
+      {
+        image: "assets/images/optimized/ramp-enhanced-overview.webp",
+        alt: "BIM rendering of an exterior ramp and access improvement from above",
+        caption: "Ramp overview rendering"
+      },
+      {
+        image: "assets/images/optimized/ramp-perspective-enhanced.webp",
+        alt: "BIM perspective rendering of an exterior ramp and access route",
+        caption: "Ramp perspective rendering"
+      },
+      {
+        image: "assets/images/optimized/main-stair-enhanced.webp",
+        alt: "BIM rendering of a main entry stair and landing concept",
+        caption: "Main stair rendering"
+      },
+      {
+        image: "assets/images/optimized/rendering-boardwalk.webp",
+        alt: "3D rendering of boardwalk and exterior access concept",
+        caption: "Boardwalk concept rendering"
+      },
+      {
+        image: "assets/images/optimized/coastal-access-rendering.webp",
+        alt: "BIM rendering of a coastal access ramp connected to a residential building",
+        caption: "Coastal access rendering"
+      }
     ]
   },
   "permit-assistance": {
@@ -132,28 +187,100 @@ const services = {
 };
 
 const fallbackKey = "full-build-construction-services";
+const defaultProcess = [
+  ["Listen and define scope.", "We start with your goals, site conditions, timeline, budget, and practical constraints."],
+  ["Visualize and coordinate.", "When helpful, we support planning with 3D visuals, project renderings, permit assistance, and drawing coordination."],
+  ["Build with detail.", "Our team focuses on clean execution, clear communication, and project completion that matches the agreed scope."]
+];
 const params = new URLSearchParams(window.location.search);
 const activeKey = services[params.get("service")] ? params.get("service") : fallbackKey;
 const activeService = services[activeKey];
+
+function renderParagraphs(container, content) {
+  container.textContent = "";
+  const paragraphs = Array.isArray(content) ? content : [content];
+  paragraphs.filter(Boolean).forEach((text) => {
+    const paragraph = document.createElement("p");
+    paragraph.textContent = text;
+    container.append(paragraph);
+  });
+}
 
 document.title = `${activeService.title} | INEX Studio Build`;
 document.querySelector("#service-title").textContent = activeService.title;
 document.querySelector("#service-summary").textContent = activeService.summary;
 document.querySelector("#service-breadcrumb").textContent = activeService.title;
 document.querySelector("#service-lead").textContent = activeService.lead;
-document.querySelector("#service-body").textContent = activeService.body;
+
+const serviceSubtitle = document.querySelector("#service-subtitle");
+if (activeService.subtitle) {
+  serviceSubtitle.textContent = activeService.subtitle;
+} else {
+  serviceSubtitle.hidden = true;
+}
+
+const serviceIntro = document.querySelector("#service-intro");
+if (activeService.intro?.length) {
+  renderParagraphs(serviceIntro, activeService.intro);
+} else {
+  serviceIntro.hidden = true;
+}
+
+renderParagraphs(document.querySelector("#service-body"), activeService.body);
+
+const renderingGallery = document.querySelector("#rendering-gallery");
+const renderingGalleryGrid = document.querySelector("#rendering-gallery-grid");
+if (activeService.gallery?.length) {
+  activeService.gallery.forEach((item) => {
+    const figure = document.createElement("figure");
+    figure.innerHTML = `
+      <img src="${item.image}" alt="${item.alt}" loading="lazy">
+      <figcaption>${item.caption}</figcaption>
+    `;
+    renderingGalleryGrid.append(figure);
+  });
+} else {
+  renderingGallery.hidden = true;
+}
 
 const heroImage = document.querySelector("#service-hero-image");
 heroImage.src = activeService.image;
 heroImage.alt = `${activeService.title} service example`;
 
 const ideas = document.querySelector("#service-ideas");
-activeService.ideas.forEach(([title, text]) => {
-  const card = document.createElement("article");
-  card.className = "idea-card";
-  card.innerHTML = `<h3>${title}</h3><p>${text}</p>`;
-  ideas.append(card);
+ideas.textContent = "";
+if (activeService.ideas.every((item) => typeof item === "string")) {
+  ideas.className = "need-list";
+  activeService.ideas.forEach((text) => {
+    const item = document.createElement("li");
+    item.textContent = text;
+    ideas.append(item);
+  });
+} else {
+  activeService.ideas.forEach(([title, text]) => {
+    const card = document.createElement("article");
+    card.className = "idea-card";
+    card.innerHTML = `<h3>${title}</h3><p>${text}</p>`;
+    ideas.append(card);
+  });
+}
+
+const processList = document.querySelector("#service-process");
+processList.textContent = "";
+(activeService.process || defaultProcess).forEach(([title, text]) => {
+  const item = document.createElement("li");
+  item.innerHTML = `<strong>${title}</strong> ${text}`;
+  processList.append(item);
 });
+
+const serviceCta = document.querySelector("#service-cta");
+if (activeService.cta) {
+  document.querySelector("#service-cta-title").textContent = activeService.cta.title;
+  document.querySelector("#service-cta-text").textContent = activeService.cta.text;
+  document.querySelector("#service-cta-button").textContent = activeService.cta.button;
+} else {
+  serviceCta.hidden = true;
+}
 
 const list = document.querySelector("#service-list");
 Object.entries(services).forEach(([key, service]) => {
